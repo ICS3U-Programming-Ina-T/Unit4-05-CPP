@@ -16,54 +16,64 @@ int main() {
   int userNumBInt;
   std::string userNumAString;
   std::string userNumBString;
+  std::string answer;
 
-  // get user number as a string
-  std::cout << "How many numbers would you like to add?: ";
-  std::cin >> userNumAString;
-  std::cout << std::endl;
+  while (true) {
+    // get user number as a string
+    std::cout << "How many numbers would you like to add?: ";
+    std::cin >> userNumAString;
+    std::cout << std::endl;
 
-  try {
-      // converts the first user input to integer
-      userNumAInt = std::stoi(userNumAString);
+    try {
+        // converts the first user input to integer
+        userNumAInt = std::stoi(userNumAString);
 
-      if (userNumAInt >= 0) {
-          // calculate the sum of the entered numbers
-          while (counter < userNumAInt) {
-              std::cout << "Enter a whole number: ";
-              std::cin >> userNumBString;
+        if (userNumAInt >= 0) {
+            // calculate the sum of the entered numbers
+            while (counter < userNumAInt) {
+                std::cout << "Enter a whole number: ";
+                std::cin >> userNumBString;
 
-              try {
-                // converts entered number from string to integer
-                userNumBInt = std::stoi(userNumBString);
-                if (userNumBInt >= 0) {
-                  std::cout << userNumBInt << " added to the sum.\n";
-                  std::cout << userNumBInt << " + " << sum << ".\n";
-                  std::cout << std::endl;
-                  sum = sum + userNumBInt;
-                  counter = counter + 1;
-
-                  if (counter == userNumAInt) {
-                    continue;
-                  }
-                } else {
-                    std::cout << "Please enter a whole number!\n";
+                try {
+                  // converts entered number from string to integer
+                  userNumBInt = std::stoi(userNumBString);
+                  if (userNumBInt >= 0) {
+                    std::cout << userNumBInt << " added to the sum.\n";
                     std::cout << std::endl;
-                }
-              } catch (std::invalid_argument) {
-                // The user did not enter a number.
-                std::cout << userNumBString << " is not a number.\n";
+                    sum = sum + userNumBInt;
+                    counter = counter + 1;
+                    answer+= userNumBString + " + ";
+                  }
+                  if (userNumBInt < 0) {
+                      std::cout << userNumBInt;
+                      std::cout << " is < 0 and cannot be added\n";
+                      std::cout << std::endl;
+                      continue;
+                  }
+                } catch (std::invalid_argument) {
+                  // The user did not enter a number.
+                  std::cout << userNumBString << " is not a number.\n";
+                  std::cout << std::endl;
+                  continue;
+                  }
+              }
+              if (counter == userNumAInt) {
+                // display the sum and calculation to the user
+                std::cout << answer << "0" << " = " << sum;
                 std::cout << std::endl;
-                }
-            }
-            // display the sum to the user
-            std::cout << "The total sum is " << sum << ".";
-        } else {
-            std::cout << "Please enter a whole number!";
-        }
-    // determines if the the answer is a number
-  } catch (std::invalid_argument) {
-    // The user did not enter a number.
-    std::cout << userNumAString << " is not a number.\n";
-    }
+                std::cout << "The sum is " << sum << ".";
+                break;
+              }
+          } else {
+              std::cout << "Please enter a whole number!\n";
+              std::cout << std::endl;
+          }
+      // determines if the the answer is a number
+    } catch (std::invalid_argument) {
+      // The user did not enter a number.
+      std::cout << userNumAString << " is not a number.\n";
+      std::cout << std::endl;
+      }
+  }
 }
 
